@@ -11,6 +11,11 @@
     "prepare": "husky install",
     "lint": "eslint './src/**/*{js,ts,jsx,tsx}'"
   },
+  "keywords": [
+    "pokemon-api",
+    "react-native"
+  ],
+  "author": "Louie John Seno",
   "dependencies": {
     "eslint": "^8.41.0",
     "expo": "~48.0.15",
