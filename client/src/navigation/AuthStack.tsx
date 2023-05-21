@@ -7,32 +7,25 @@ import CustomLoading from 'src/components/CustomLoading';
 import Login from 'src/screens/auth/Login';
 const Register = lazy(() => import('src/screens/auth/Register'));
 
-
 export type AuthStackParamList = {
-    [Screens.Register]: undefined;
-    [Screens.Login]:  undefined;
+  [Screens.Register]: undefined;
+  [Screens.Login]: undefined;
 };
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 const AuthStack = () => {
-    return (
-       <Suspense fallback={<CustomLoading/>}>
-            <Stack.Navigator 
-                screenOptions={{ headerShown: false }}
-                initialRouteName={Screens.Login}
-            >
-                <Stack.Screen
-                    name={Screens.Register}
-                    component={Register}
-                />
-                <Stack.Screen
-                    name={Screens.Login}
-                    component={Login}
-                />
-            </Stack.Navigator>
-        </Suspense>
-    );
-}
+  return (
+    <Suspense fallback={<CustomLoading />}>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName={Screens.Login}
+      >
+        <Stack.Screen name={Screens.Register} component={Register} />
+        <Stack.Screen name={Screens.Login} component={Login} />
+      </Stack.Navigator>
+    </Suspense>
+  );
+};
 
 export default AuthStack;

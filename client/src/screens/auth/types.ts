@@ -1,12 +1,12 @@
-import { UseFormHandleSubmit } from "react-hook-form";
+import { UseFormHandleSubmit } from 'react-hook-form';
 
 export type AuthFormType = {
-    email: '';
-    password: '';
+  email: '';
+  password: '';
 };
 
 export type FormContextValuesType = {
-    isValid: boolean,
-    isSubmitting:boolean,
-    handleSubmit?:UseFormHandleSubmit<AuthFormType>
+  isValid: boolean;
+  isSubmitting: boolean;
+  handleSubmit?: UseFormHandleSubmit<AuthFormType>;
 };

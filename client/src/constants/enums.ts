@@ -1,9 +1,8 @@
 export enum Screens {
-    Auth = 'auth',
-    Register = 'register',
-    Login = 'login',
+  Auth = 'Auth',
+  Register = 'Register',
+  Login = 'Login',
 
-    App = 'app',
-    Home = 'home'
-
+  App = 'App',
+  Home = 'Home',
 }

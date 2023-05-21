@@ -1,31 +1,25 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Suspense } from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import CustomDrawerContent from 'src/components/CustomDrawerContent';
+
 import { Screens } from 'src/constants/enums';
-import CustomLoading from 'src/components/CustomLoading';
 
 // Screens
 import Home from 'src/screens/dashboard/Home';
 
 export type AppStackParamList = {
-    [Screens.Home]: undefined;
+  [Screens.Home]: undefined;
 };
 
-const Stack = createNativeStackNavigator<AppStackParamList>();
+const Drawer = createDrawerNavigator<AppStackParamList>();
 
 const AuthStack = () => {
-    return (
-       <Suspense fallback={<CustomLoading/>}>
-            <Stack.Navigator 
-                screenOptions={{ headerShown: false }}
-                initialRouteName={Screens.Home}
-            >
-                <Stack.Screen
-                    name={Screens.Home}
-                    component={Home}
-                />
-            </Stack.Navigator>
-        </Suspense>
-    );
-}
+  return (
+    <Drawer.Navigator
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+    >
+      <Drawer.Screen name={Screens.Home} component={Home} />
+    </Drawer.Navigator>
+  );
+};
 
 export default AuthStack;

@@ -1,25 +1,25 @@
-import { Controller, useForm } from "react-hook-form";
-import { Image, StyleSheet} from "react-native"
-import Layout from "src/components/Layout"
-import { AuthFormType, FormContextValuesType } from "../types";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { authFormValidationSchema } from "../validation";
-import CustomInput from "src/components/CustomInput";
-import InputError from "src/components/InputError";
-import { createContext } from "react";
+import { Controller, useForm } from 'react-hook-form';
+import { Image, StyleSheet } from 'react-native';
+import Layout from 'src/components/Layout';
+import { AuthFormType, FormContextValuesType } from '../types';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { authFormValidationSchema } from '../validation';
+import CustomInput from 'src/components/CustomInput';
+import InputError from 'src/components/InputError';
+import { createContext } from 'react';
 
-const FormContextValue:FormContextValuesType = {
-  isValid: false, 
+const FormContextValue: FormContextValuesType = {
+  isValid: false,
   isSubmitting: false,
-}
+};
 
 export const FormContext = createContext(FormContextValue);
 
 type Props = {
-    children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
-export default function LogoWrapper({children}:Props){
+export default function LogoWrapper({ children }: Props) {
   const {
     handleSubmit,
     control,
@@ -32,27 +32,29 @@ export default function LogoWrapper({children}:Props){
     shouldFocusError: true,
     criteriaMode: 'all',
     defaultValues: {
-      email:'',
-      password:''
+      email: '',
+      password: '',
     },
   });
 
   const focusNext = (key: keyof AuthFormType) => () => setFocus(key);
- 
+
   return (
-    <FormContext.Provider value={{
-      isValid,
-      isSubmitting,
-      handleSubmit
-    }}>
+    <FormContext.Provider
+      value={{
+        isValid,
+        isSubmitting,
+        handleSubmit,
+      }}
+    >
       <Layout customViewStyle={styles.container}>
-          <Image 
-              source={require('assets/pokemon/logo.png')} 
-              resizeMode="contain"
-              style={{width: '100%', height: '60%'}}
-          />
-          <Controller
-          name='email'
+        <Image
+          source={require('assets/pokemon/logo.png')}
+          resizeMode="contain"
+          style={{ width: '100%', height: '60%' }}
+        />
+        <Controller
+          name="email"
           rules={{ required: true }}
           control={control}
           render={({ field: { onChange, onBlur, ref } }) => (
@@ -62,19 +64,19 @@ export default function LogoWrapper({children}:Props){
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={'Email Address'}
-              keyboardType='email-address'
-              caption={<InputError message={errors.email?.message}/>}
+              keyboardType="email-address"
+              caption={<InputError message={errors.email?.message} />}
               maxLength={50}
-              returnKeyType='next'
+              returnKeyType="next"
               blurOnSubmit={false}
-              autoCapitalize='none'
+              autoCapitalize="none"
               onSubmitEditing={focusNext('password')}
               defaultValue=""
             />
           )}
         />
         <Controller
-          name='password'
+          name="password"
           rules={{ required: true }}
           control={control}
           render={({ field: { onChange, onBlur, ref } }) => (
@@ -84,27 +86,27 @@ export default function LogoWrapper({children}:Props){
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={'Password'}
-              caption={<InputError message={errors.password?.message}/>}
+              caption={<InputError message={errors.password?.message} />}
               maxLength={50}
-              returnKeyType='default'
+              returnKeyType="default"
               blurOnSubmit
-              onSubmitEditing={()=>console.log('submit')}
+              onSubmitEditing={() => console.log('submit')}
               defaultValue=""
             />
           )}
         />
-          {children}
+        {children}
       </Layout>
     </FormContext.Provider>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   inputField: {
-    marginTop: 20
+    marginTop: 20,
   },
-    container: {
-      alignItems: 'center',
-      marginHorizontal: 30,
-    }
-  });
+  container: {
+    alignItems: 'center',
+    marginHorizontal: 30,
+  },
+});

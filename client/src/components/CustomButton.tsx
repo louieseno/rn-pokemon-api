@@ -7,16 +7,15 @@ interface Props extends ButtonProps {
 
 const LoadingIndicator = () => (
   <View>
-    <Spinner size='small' />
+    <Spinner size="small" />
   </View>
 );
 
-
-export default function CustomButton({loading, ...props}:Props) {
+export default function CustomButton({ loading, ...props }: Props) {
   return (
     <Button
-        {...props}
-        {...(loading && { accessoryRight: LoadingIndicator, disabled: true })}
+      {...props}
+      {...(loading && { accessoryRight: LoadingIndicator, disabled: true })}
     />
-  )
+  );
 }
