@@ -1,7 +1,10 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { Text } from '@ui-kitten/components';
-import { FlatList, Image, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
-import { usePokemonsQuery } from 'src/app/api/apiSlice';
-import CustomLoading from 'src/components/CustomLoading';
+import { useCallback, useState } from 'react';
+import { Alert, FlatList, Image, RefreshControl, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
+import { useLazyPokemonsQuery } from 'src/app/api/apiSlice';
+import { appendList, clearList, pokemonSelectors } from 'src/app/features/pokemonSlice';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 
 const RenderRowDetails = ({label, value, textStyle, primary}:{label?:string, value?:string, textStyle?:StyleProp<TextStyle>, primary?:boolean}) => {
   return (
@@ -12,11 +15,36 @@ const RenderRowDetails = ({label, value, textStyle, primary}:{label?:string, val
   )
 }
 export default function Home() {
-  const { data, isFetching, isLoading } = usePokemonsQuery(null);
+  const [refreshing, setRefreshing] = useState(true);
+  const [fetchMore] = useLazyPokemonsQuery();
+  const dispatch = useAppDispatch();
+  const pokemons = useAppSelector(pokemonSelectors.getPokemons);
+  const next = useAppSelector(pokemonSelectors.getNext);
 
-  if(isFetching || isLoading) {
-    return <CustomLoading/>
-  }
+  const loadPokemons = () => {
+    fetchMore(next ? next : null)
+      .unwrap()
+      .then((response) => {
+        dispatch(appendList({list: response?.pokemons, next:response?.next, prev: response?.previous}))
+      })
+      .catch((_) => {
+        Alert.alert('Something Went Wrong!')
+      })
+      .finally(()=>{
+        setRefreshing(false);
+      });
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      loadPokemons();
+      return () => dispatch(clearList())
+    }, [])
+  );
+
+  // if(isFetching || isLoading) {
+  //   return <CustomLoading/>
+  // }
 
   const renderItem = ({item}:any) => {
    return (
@@ -57,9 +85,12 @@ export default function Home() {
   }
   return (
    <FlatList
-    data={data?.pokemons}
+    data={pokemons}
     keyExtractor={(item)=> item.id}
     renderItem={renderItem}
+    refreshControl={
+      <RefreshControl refreshing={refreshing} onRefresh={loadPokemons} />
+    }
    />
   );
 }

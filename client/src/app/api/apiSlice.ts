@@ -45,7 +45,7 @@ export const apiSlice = createApi({
     }),
     pokemons: builder.query({
       async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
-        const pokemonResult:any = await fetchWithBQ('https://pokeapi.co/api/v2/pokemon?offset=0&limit=10')
+        const pokemonResult:any = await fetchWithBQ(_arg ?? 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=10')
         if (pokemonResult.error) {
           return { error: pokemonResult.error as FetchBaseQueryError };
         }
@@ -58,4 +58,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, usePokemonsQuery, useLazyPokemonsQuery } = apiSlice;
+export const { useRegisterMutation, useLoginMutation, useLazyPokemonsQuery } = apiSlice;
