@@ -2,15 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../../app/store';
 
 type InitialStateType = {
-  next: string,
-  prev: string,
-  pokemons: Pokemons[],
-}
+  next: string;
+  prev: string;
+  pokemons: Pokemons[];
+};
 
-const initialState:InitialStateType = {
-  next: "",
-  prev: "",
-  pokemons: []  
+const initialState: InitialStateType = {
+  next: '',
+  prev: '',
+  pokemons: [],
 };
 
 export const pokemonSlice = createSlice({
@@ -18,14 +18,14 @@ export const pokemonSlice = createSlice({
   initialState,
   reducers: {
     appendList(state, action) {
-        state.pokemons = [...action.payload.list, ...state.pokemons] as any;
-        state.next = action.payload.next;
-        state.prev = action.payload.prev;
+      state.pokemons = [...action.payload.list, ...state.pokemons] as any;
+      state.next = action.payload.next;
+      state.prev = action.payload.prev;
     },
     clearList(state) {
-        state.pokemons = [];
-        state.next = "";
-        state.prev = "";
+      state.pokemons = [];
+      state.next = '';
+      state.prev = '';
     },
   },
 });

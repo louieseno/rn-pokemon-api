@@ -11,14 +11,6 @@
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-explicit-any": "off"
   },
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.d.ts"],
-      "parserOptions": {
-        "project": "./client/tsconfig.json"
-      }
-    }
-  ],
   "settings": {
     "import/resolver": {
       "typescript": {} // this loads <rootdir>/tsconfig.json to ESLint

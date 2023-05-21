@@ -1,5 +1,10 @@
 import { Controller, useForm } from 'react-hook-form';
-import { Image, ImageProps, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import {
+  Image,
+  ImageProps,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import Layout from 'src/components/Layout';
 import { AuthFormType, FormContextValuesType } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -43,12 +48,9 @@ export default function LogoWrapper({ children }: Props) {
     setSecureTextEntry(!secureTextEntry);
   };
 
-  const renderIcon = (props?:Partial<ImageProps>): React.ReactElement => (
+  const renderIcon = (props?: Partial<ImageProps>): React.ReactElement => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
-      <Icon
-        {...props}
-        name={secureTextEntry ? 'eye-off' : 'eye'}
-      />
+      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
     </TouchableWithoutFeedback>
   );
 

@@ -1,5 +1,4 @@
 import { Text } from '@ui-kitten/components';
-import { View } from 'react-native';
 
 type Props = {
   message?: string;

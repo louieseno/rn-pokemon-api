@@ -7,7 +7,7 @@ export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     user: userReducer,
-    pokemon: pokemonReducer
+    pokemon: pokemonReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

@@ -9,7 +9,7 @@ class SecureStorage {
     const result = await SecureStore.getItemAsync(key);
     if (result) {
       return result;
-    } 
+    }
     return '';
   }
 

@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { secureStorage } from 'src/services/secure-storage';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { userSelectors } from 'src/app/features/userSlice';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import { login } from 'src/app/features/userSlice';
 
 export type RootStackParamList = {
@@ -28,9 +28,14 @@ const RootNavigator = () => {
     (async () => {
       const token = await secureStorage.getValueFor('token');
       if (token) {
-        const decoded:{email: string, exp: number,iat: string, sub: string} = jwt_decode(token);
-        const {email, sub} = decoded
-        dispatch(login({email, id: Number(sub)}))
+        const decoded: {
+          email: string;
+          exp: number;
+          iat: string;
+          sub: string;
+        } = jwt_decode(token);
+        const { email, sub } = decoded;
+        dispatch(login({ email, id: Number(sub) }));
       }
     })();
   }, []);
