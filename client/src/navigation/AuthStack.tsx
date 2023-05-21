@@ -1,7 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Suspense, lazy } from 'react';
-import {Text} from 'react-native';
 import { Screens } from 'src/constants/enums';
+import CustomLoading from 'src/components/CustomLoading';
+
+// Screens
+import Login from 'src/screens/auth/Login';
+const Register = lazy(() => import('src/screens/auth/Register'));
+
 
 export type AuthStackParamList = {
     [Screens.Register]: undefined;
@@ -12,17 +17,18 @@ const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 const AuthStack = () => {
     return (
-       <Suspense fallback={<Text>Loading</Text>}>
+       <Suspense fallback={<CustomLoading/>}>
             <Stack.Navigator 
-             screenOptions={{ headerShown: false }}
-            initialRouteName={Screens.Login}>
+                screenOptions={{ headerShown: false }}
+                initialRouteName={Screens.Login}
+            >
                 <Stack.Screen
                     name={Screens.Register}
-                    component={lazy(() => import('src/screens/auth/Register'))}
+                    component={Register}
                 />
                 <Stack.Screen
                     name={Screens.Login}
-                    component={lazy(() => import('src/screens/auth/Login'))}
+                    component={Login}
                 />
             </Stack.Navigator>
         </Suspense>
