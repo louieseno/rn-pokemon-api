@@ -74,8 +74,10 @@ Make sure to start your `server` to allow login and register of users in our mob
 
 ![](demo.gif)
 
-• Login Screen
+## Login Screen
+
 ![](login_screen.png)
 
-• Home Screen
+## Home Screen
+
 ![](home_screen.png)
