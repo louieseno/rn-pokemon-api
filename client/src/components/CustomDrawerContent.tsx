@@ -28,12 +28,16 @@ export default function CustomDrawerContent(
         <Text style={{ marginVertical: 10 }} category="label">
           {email}
         </Text>
+        
       </View>
 
       <View style={styles.divider}>
         <TouchableOpacity onPress={logoutUser} style={{ paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row' }}>
-            <Icon style={styles.logoutIcon} name="log-out-outline" />
+            <Icon style={styles.logoutIcon} 
+            fill="black"
+            name="log-out-outline" 
+            />
             <Text category="s1">Log Out</Text>
           </View>
         </TouchableOpacity>
