@@ -1,5 +1,5 @@
 import { Controller, useForm } from 'react-hook-form';
-import { Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { Image, ImageProps, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Layout from 'src/components/Layout';
 import { AuthFormType, FormContextValuesType } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,8 +8,6 @@ import CustomInput from 'src/components/CustomInput';
 import InputError from 'src/components/InputError';
 import { createContext, useState } from 'react';
 import { Icon } from '@ui-kitten/components';
-import { RenderProp } from '@ui-kitten/components/devsupport';
-import { ImageProps } from 'react-native-svg';
 
 const FormContextValue: FormContextValuesType = {
   isValid: false,
@@ -45,7 +43,7 @@ export default function LogoWrapper({ children }: Props) {
     setSecureTextEntry(!secureTextEntry);
   };
 
-  const renderIcon = (props:RenderProp<Partial<ImageProps>>): React.ReactElement => (
+  const renderIcon = (props?:Partial<ImageProps>): React.ReactElement => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
       <Icon
         {...props}
@@ -88,7 +86,6 @@ export default function LogoWrapper({ children }: Props) {
               blurOnSubmit={false}
               autoCapitalize="none"
               onSubmitEditing={focusNext('password')}
-              defaultValue=""
             />
           )}
         />
@@ -109,7 +106,6 @@ export default function LogoWrapper({ children }: Props) {
               maxLength={50}
               returnKeyType="default"
               blurOnSubmit
-              defaultValue=""
             />
           )}
         />

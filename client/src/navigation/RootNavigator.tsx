@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthStack, { AuthStackParamList } from 'src/navigation/AuthStack';
 import { Screens } from 'src/constants/enums';
 import AppStack, { AppStackParamList } from './AppStack';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { secureStorage } from 'src/services/secure-storage';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { userSelectors } from 'src/app/features/userSlice';
