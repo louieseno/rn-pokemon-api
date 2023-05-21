@@ -9,9 +9,8 @@ class SecureStorage {
     const result = await SecureStore.getItemAsync(key);
     if (result) {
       return result;
-    } else {
-      throw new Error(`No values stored under that key: ${key}`);
-    }
+    } 
+    return '';
   }
 
   async deleteValueFor(key: string): Promise<void> {

@@ -8,6 +8,10 @@ import { Screens } from 'src/constants/enums';
 import AppStack, { AppStackParamList } from './AppStack';
 import { useEffect, useState } from 'react';
 import { secureStorage } from 'src/services/secure-storage';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { userSelectors } from 'src/app/features/userSlice';
+import jwt_decode from "jwt-decode";
+import { login } from 'src/app/features/userSlice';
 
 export type RootStackParamList = {
   [Screens.Auth]: NavigatorScreenParams<AuthStackParamList>;
@@ -17,15 +21,16 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
-  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+  const {isLoggedIn} = useAppSelector(userSelectors.getUser);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
       const token = await secureStorage.getValueFor('token');
       if (token) {
-        setIsAuthorized(true);
-      } else {
-        setIsAuthorized(false);
+        const decoded:{email: string, exp: number,iat: string, sub: string} = jwt_decode(token);
+        const {email, sub} = decoded
+        dispatch(login({email, id: Number(sub)}))
       }
     })();
   }, []);
@@ -35,7 +40,7 @@ const RootNavigator = () => {
       <Stack.Navigator
         screenOptions={{ headerShown: false, gestureEnabled: false }}
       >
-        {isAuthorized ? (
+        {isLoggedIn ? (
           <Stack.Screen name={Screens.App} component={AppStack} />
         ) : (
           <Stack.Screen name={Screens.Auth} component={AuthStack} />
