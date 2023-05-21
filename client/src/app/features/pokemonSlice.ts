@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../../app/store';
 
-const initialState = {
+type InitialStateType = {
+  next: string,
+  prev: string,
+  pokemons: Pokemons[],
+}
+
+const initialState:InitialStateType = {
   next: "",
   prev: "",
-  pokemons: [],
+  pokemons: []  
 };
 
 export const pokemonSlice = createSlice({

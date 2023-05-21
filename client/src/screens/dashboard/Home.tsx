@@ -18,8 +18,8 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(true);
   const [fetchMore] = useLazyPokemonsQuery();
   const dispatch = useAppDispatch();
-  const pokemons = useAppSelector(pokemonSelectors.getPokemons);
-  const next = useAppSelector(pokemonSelectors.getNext);
+  const pokemons:Pokemons[] = useAppSelector(pokemonSelectors.getPokemons);
+  const next:string = useAppSelector(pokemonSelectors.getNext);
 
   const loadPokemons = () => {
     fetchMore(next ? next : null)
@@ -27,7 +27,7 @@ export default function Home() {
       .then((response) => {
         dispatch(appendList({list: response?.pokemons, next:response?.next, prev: response?.previous}))
       })
-      .catch((_) => {
+      .catch(() => {
         Alert.alert('Something Went Wrong!')
       })
       .finally(()=>{
@@ -41,10 +41,6 @@ export default function Home() {
       return () => dispatch(clearList())
     }, [])
   );
-
-  // if(isFetching || isLoading) {
-  //   return <CustomLoading/>
-  // }
 
   const renderItem = ({item}:any) => {
    return (
@@ -86,7 +82,7 @@ export default function Home() {
   return (
    <FlatList
     data={pokemons}
-    keyExtractor={(item)=> item.id}
+    keyExtractor={(item)=> `${item.id}`}
     renderItem={renderItem}
     refreshControl={
       <RefreshControl refreshing={refreshing} onRefresh={loadPokemons} />
