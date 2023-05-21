@@ -1,12 +1,15 @@
 import { Controller, useForm } from 'react-hook-form';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Layout from 'src/components/Layout';
 import { AuthFormType, FormContextValuesType } from '../types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authFormValidationSchema } from '../validation';
 import CustomInput from 'src/components/CustomInput';
 import InputError from 'src/components/InputError';
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
+import { Icon } from '@ui-kitten/components';
+import { RenderProp } from '@ui-kitten/components/devsupport';
+import { ImageProps } from 'react-native-svg';
 
 const FormContextValue: FormContextValuesType = {
   isValid: false,
@@ -36,6 +39,20 @@ export default function LogoWrapper({ children }: Props) {
       password: '',
     },
   });
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+
+  const toggleSecureEntry = (): void => {
+    setSecureTextEntry(!secureTextEntry);
+  };
+
+  const renderIcon = (props:RenderProp<Partial<ImageProps>>): React.ReactElement => (
+    <TouchableWithoutFeedback onPress={toggleSecureEntry}>
+      <Icon
+        {...props}
+        name={secureTextEntry ? 'eye-off' : 'eye'}
+      />
+    </TouchableWithoutFeedback>
+  );
 
   const focusNext = (key: keyof AuthFormType) => () => setFocus(key);
 
@@ -83,6 +100,8 @@ export default function LogoWrapper({ children }: Props) {
             <CustomInput
               ref={ref}
               style={styles.inputField}
+              secureTextEntry={secureTextEntry}
+              accessoryRight={renderIcon}
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={'Password'}
@@ -90,7 +109,6 @@ export default function LogoWrapper({ children }: Props) {
               maxLength={50}
               returnKeyType="default"
               blurOnSubmit
-              onSubmitEditing={() => console.log('submit')}
               defaultValue=""
             />
           )}

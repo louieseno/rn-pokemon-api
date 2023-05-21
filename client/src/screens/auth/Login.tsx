@@ -37,7 +37,6 @@ const Content = () => {
           'Registration Error:',
           error?.data ?? 'Something Went Wrong! Please contact developer.'
         );
-        console.log(error);
       });
   };
 

@@ -4,20 +4,17 @@ import { Image, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { logout, userSelectors } from 'src/app/features/userSlice';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { useNavigation } from '@react-navigation/native';
 import { secureStorage } from 'src/services/secure-storage';
   
 export default function CustomDrawerContent(
   props: DrawerContentComponentProps
 ) {
-    const navigation = useNavigation();
     const dispatch = useAppDispatch();
     const { email } = useAppSelector(userSelectors.getUser);
 
     const logoutUser = async () => {
-        console.log('logout');
         await secureStorage.deleteValueFor('token');
-        dispatch(logout)
+        dispatch(logout())
     }
 
     return (
