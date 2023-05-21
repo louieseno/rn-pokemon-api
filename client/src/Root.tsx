@@ -3,14 +3,18 @@ import { StatusBar } from 'expo-status-bar';
 import RootNavigator from 'src/navigation/RootNavigator';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 
 export default function Root() {
   return (
     <SafeAreaView style={styles.container}>
        <StatusBar style='auto' />
        <ApplicationProvider {...eva} theme={eva.light}>
-        <RootNavigator />
-      </ApplicationProvider>
+          <Provider store={store}>
+            <RootNavigator />
+          </Provider>
+        </ApplicationProvider>
     </SafeAreaView>
   );
 }

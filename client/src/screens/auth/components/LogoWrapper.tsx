@@ -11,7 +11,6 @@ import { createContext } from "react";
 const FormContextValue:FormContextValuesType = {
   isValid: false, 
   isSubmitting: false,
-  handleSubmit: null
 }
 
 export const FormContext = createContext(FormContextValue);

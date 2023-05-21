@@ -8,5 +8,5 @@ export type AuthFormType = {
 export type FormContextValuesType = {
     isValid: boolean,
     isSubmitting:boolean,
-    handleSubmit?:UseFormHandleSubmit<AuthFormType> | null 
+    handleSubmit?:UseFormHandleSubmit<AuthFormType>
 };
